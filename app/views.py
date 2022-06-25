@@ -68,9 +68,9 @@ def checkIn(user):
 
 
 class CheckInView(APIView):
-    def get(self, request):
+    def get(self, request, user):
         try:
-            alreadyCheckIn = isAlreadyCheckIn(request.user)
+            alreadyCheckIn = isAlreadyCheckIn(user)
         except:
             return Response('User Not Found', status=status.HTTP_404_NOT_FOUND)
 
@@ -78,7 +78,7 @@ class CheckInView(APIView):
             return Response('Already Check In', status=status.HTTP_409_CONFLICT)
 
         try:
-            checkIn(request.user)
+            checkIn(user)
         except:
             return Response('Database Not Found', status=status.HTTP_404_NOT_FOUND)
 
